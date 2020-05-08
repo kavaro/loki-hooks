@@ -31,3 +31,4 @@ export interface THooksLokiConfigOptions extends LokiConfigOptions {
 export interface THooksCollectionOptions<T> extends CollectionOptions<T> {
   hooks: THookOptions
 }
+

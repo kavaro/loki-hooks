@@ -18,6 +18,7 @@ let called = false
  * This registry allows the user to defined hook factory functions.
  * This function should be called only once in the lifetime of the application.
  * 
+ * 
  * @param registry
  */
 export function createHooksLoki(registry: Hooks): THooksLoki {
