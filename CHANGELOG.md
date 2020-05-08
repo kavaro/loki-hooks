@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/kavaro/loki-hooks/compare/v1.2.2...v1.2.3) (2020-05-08)
+
+
+### Bug Fixes
+
+* respository error ([96ad88f](https://github.com/kavaro/loki-hooks/commit/96ad88f))
+
+
+
 ### [1.2.2](https://github.com/loki-hooks/loki-hooks/compare/v1.2.1...v1.2.2) (2020-05-08)
 
 
