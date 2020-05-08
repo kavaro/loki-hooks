@@ -17,7 +17,7 @@ npm install loki-hooks
 # Usage
 
 See member-hooks module the usage of hooks.
-The createHooksLoki function exported by 'loki-hooks' returns a Loki class enhanced with hooks.
+The createHooksLoki function exported by 'loki-hooks' returns a Loki and Collection class enhanced with a hooks option.
 
 ```typescript
 import test from 'ava'
