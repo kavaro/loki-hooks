@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/loki-hooks/loki-immutable/compare/v1.1.0...v1.2.0) (2020-05-08)
+
+
+### Features
+
+* publish from master branch ([d554fec](https://github.com/loki-hooks/loki-immutable/commit/d554fec))
+
+
+
 ## 1.1.0 (2020-05-08)
 
 
