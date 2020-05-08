@@ -1,28 +1,9 @@
-# loki-hooks
-
-Loki hooks integrates the member-hooks module into lokijs.
-It adds a hooks options to the Loki constructor options and the addCollection options.
-The hooks option allows to enhance loki by decorating its Loki and Collection methods.
-
-# Installation
-
-```javascript
-yarn add loki-hooks
-npm install loki-hooks
-```
-
-# Usage
-
-See member-hooks module the usage of hooks.
-The createHooksLoki function exported by 'loki-hooks' returns a Loki class enhanced with hooks.
-
-```typescript
 import test from 'ava'
 import sinon from 'sinon'
 import Loki from 'lokijs'
 import { v4 as uuid } from 'uuid'
 import { Hooks, HookMethods } from 'member-hooks'
-import { THooksLoki, createHooksLoki } from 'loki-hooks'
+import { THooksLoki, createHooksLoki } from '.'
 
 interface TSeqOptions {
   field?: string,
@@ -107,4 +88,3 @@ test('should add collection hooks', async t => {
   t.deepEqual(newCollection.insert({ id: 'id1' }), { $loki: 1, id: 'id1' })
 })
 
-```

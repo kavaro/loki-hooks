@@ -36,6 +36,7 @@
     "max-classes-per-file": false,
     "no-empty": false,
     "no-unused-expression": false,
-    "only-arrow-functions": false
+    "only-arrow-functions": false,
+    "no-misused-new": false
   }
 }
