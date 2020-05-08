@@ -20,8 +20,8 @@ function seqHook(methods: HookMethods, options?: TSeqOptions): void {
   })
 }
 
-function saveHook(methods: HookMethods) {
-  methods.before('saveDatabaseInternal', 10, function(this: Loki, args: any[]): void {
+function saveHook(methods: HookMethods): void {
+  methods.before('saveDatabaseInternal', 10, function (this: Loki, args: any[]): void {
     if (!this.events.saved) {
       this.events.saved = []
     }

@@ -51,11 +51,6 @@ export function createHooksLoki(registry: Hooks): THooksLoki {
     if (collections) {
       collections.forEach((collection: THooksCollection<any>, index) => {
         installHooks(collection, dbObject.collections[index].hooks)
-        /* istanbul ignore else */
-        if (!collection.events.loaded) {
-          collection.events.loaded = []
-        }
-        collection.emit('loaded', this)
       })
     }
   }

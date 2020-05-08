@@ -1,8 +1,11 @@
 # loki-hooks
 
 Loki hooks integrates the member-hooks module into lokijs.
-It adds a hooks options to the Loki constructor options and the addCollection options.
-The hooks option allows to enhance loki by decorating its Loki and Collection methods.
+It adds a hooks options to the Loki class constructor options and the addCollection options.
+The hooks option allows to add before and after hooks to Loki or collection methods.
+Examples:
+  - set auto-increment or uuid field on insert
+  - add saved event to database
 
 # Installation
 
