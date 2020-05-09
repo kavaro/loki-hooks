@@ -101,7 +101,7 @@
 					<div class="tsd-signature tsd-kind-icon">called<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/bf6f21b/src/lib/createLoki.ts#L12">src/lib/createLoki.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/680ee2f/src/lib/createLoki.ts#L12">src/lib/createLoki.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -118,13 +118,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/bf6f21b/src/lib/createLoki.ts#L24">src/lib/createLoki.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/680ee2f/src/lib/createLoki.ts#L25">src/lib/createLoki.ts:25</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Enhances Loki constructor and addCollection method with a hooks option.
+									<p>Enhances Loki constructor and addCollection method with a hooks option and adds a loaded method to Loki and Collection.
 										The hooks option allows the user to decorate the database and collection methods hooks as enabled by the member-hooks module.
+										The loaded methods will be called after the database or collection has been loaded and can be used in hooks to intercept a load.
 										The createHooksLoki function takes a database and a collection hooks registry (see member-hooks for documentation) as argument and returns the HooksLoki class.
 										This database registry allows the user to define hooks for the database.
 										This collection registry allows the user to define hooks for the collections.
