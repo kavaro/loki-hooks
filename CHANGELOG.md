@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/kavaro/loki-hooks/compare/v1.2.4...v2.0.0) (2020-05-09)
+
+
+### improvement
+
+* separate database and collection registry ([bf6f21b](https://github.com/kavaro/loki-hooks/commit/bf6f21b))
+
+
+### BREAKING CHANGES
+
+* createLoki function now takes 2 arguments instead of one
+
+
+
 ### [1.2.4](https://github.com/kavaro/loki-hooks/compare/v1.2.3...v1.2.4) (2020-05-08)
 
 
