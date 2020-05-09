@@ -6,6 +6,8 @@ The hooks option allows to add before and after hooks to Loki or collection meth
 Examples:
   - set auto-increment or uuid field on insert
   - add saved event to database
+Furthermore it adds a loaded method to both the Loki and the Collection classes.
+These methods can be ussed to hook into a database and collection load.
 
 # Installation
 
@@ -25,7 +27,7 @@ import sinon from 'sinon'
 import Loki from 'lokijs'
 import { v4 as uuid } from 'uuid'
 import { Hooks, HookMethods } from 'member-hooks'
-import { THooksLoki, createHooksLoki } from 'loki-hooks'
+import { THooksLoki, createHooksLoki } from '.'
 
 interface TSeqOptions {
   field?: string,
@@ -42,8 +44,14 @@ function seqHook(methods: HookMethods, options?: TSeqOptions): void {
   })
 }
 
-function saveHook(methods: HookMethods) {
-  methods.before('saveDatabaseInternal', 10, function(this: Loki, args: any[]): void {
+function loadedHook(methods: HookMethods): void {
+  methods.before('loaded', 10, function (this: any): void {
+    this.loadedCallCount = (this.loadedCallCount || 0) + 1
+  })
+}
+
+function saveHook(methods: HookMethods): void {
+  methods.before('saveDatabaseInternal', 10, function (this: Loki, args: any[]): void {
     if (!this.events.saved) {
       this.events.saved = []
     }
@@ -62,6 +70,7 @@ dbRegistry.register('saveDatabaseInternal', saveHook)
 
 const collectionRegistry = new Hooks()
 collectionRegistry.register('seq', seqHook)
+collectionRegistry.register('loaded', loadedHook)
 
 const HooksLoki = createHooksLoki(dbRegistry, collectionRegistry)
 
@@ -89,6 +98,10 @@ test('should add database hooks', async t => {
   db.addListener('saved', saved)
   await save(db)
   t.assert(saved.calledOnce)
+  const dbLoaded = sinon.spy(db.loaded)
+  db.loaded = dbLoaded
+  await load(db)
+  t.assert(dbLoaded.callCount > 0)
 })
 
 test('should add collection hooks', async t => {
@@ -98,18 +111,20 @@ test('should add collection hooks', async t => {
     disableMeta: true,
     hooks: {
       store: { seq: 10 },
-      config: [['seq', { field: 'seq' }]]
+      config: [
+        ['seq', { field: 'seq' }], 
+        ['loaded', {}]
+      ]
     }
   })
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 1, id: 'id1', seq: 11 })
   await save(db)
   await load(db)
+  t.assert((db.getCollection('collection') as any).loadedCallCount > 0)
+  t.deepEqual(db.getCollection('collection').insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
-  const newDb = db.copy()
-  t.deepEqual(newDb.getCollection('collection').insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
   db.removeCollection('collection')
   const newCollection = db.addCollection('collection', { disableMeta: true })
   t.deepEqual(newCollection.insert({ id: 'id1' }), { $loki: 1, id: 'id1' })
 })
-
 ```

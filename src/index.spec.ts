@@ -20,6 +20,12 @@ function seqHook(methods: HookMethods, options?: TSeqOptions): void {
   })
 }
 
+function loadedHook(methods: HookMethods): void {
+  methods.before('loaded', 10, function (this: any): void {
+    this.loadedCallCount = (this.loadedCallCount || 0) + 1
+  })
+}
+
 function saveHook(methods: HookMethods): void {
   methods.before('saveDatabaseInternal', 10, function (this: Loki, args: any[]): void {
     if (!this.events.saved) {
@@ -40,6 +46,7 @@ dbRegistry.register('saveDatabaseInternal', saveHook)
 
 const collectionRegistry = new Hooks()
 collectionRegistry.register('seq', seqHook)
+collectionRegistry.register('loaded', loadedHook)
 
 const HooksLoki = createHooksLoki(dbRegistry, collectionRegistry)
 
@@ -67,6 +74,10 @@ test('should add database hooks', async t => {
   db.addListener('saved', saved)
   await save(db)
   t.assert(saved.calledOnce)
+  const dbLoaded = sinon.spy(db.loaded)
+  db.loaded = dbLoaded
+  await load(db)
+  t.assert(dbLoaded.callCount > 0)
 })
 
 test('should add collection hooks', async t => {
@@ -76,15 +87,18 @@ test('should add collection hooks', async t => {
     disableMeta: true,
     hooks: {
       store: { seq: 10 },
-      config: [['seq', { field: 'seq' }]]
+      config: [
+        ['seq', { field: 'seq' }], 
+        ['loaded', {}]
+      ]
     }
   })
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 1, id: 'id1', seq: 11 })
   await save(db)
   await load(db)
+  t.assert((db.getCollection('collection') as any).loadedCallCount > 0)
+  t.deepEqual(db.getCollection('collection').insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
-  const newDb = db.copy()
-  t.deepEqual(newDb.getCollection('collection').insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
   db.removeCollection('collection')
   const newCollection = db.addCollection('collection', { disableMeta: true })
   t.deepEqual(newCollection.insert({ id: 'id1' }), { $loki: 1, id: 'id1' })
