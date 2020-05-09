@@ -73,6 +73,11 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
     return collection
   }
 
+  const getCollection = Loki.prototype.getCollection
+  Loki.prototype.getCollection = function <T extends object = any>(this: THooksLoki, name: string) : THooksCollection<T> {
+    return getCollection.call(this, name) as unknown as THooksCollection<T>
+  }
+
   const removeCollection = Loki.prototype.removeCollection
   Loki.prototype.removeCollection = function (name: string): void {
     collectionRegistry.uninstall(this.getCollection(name))

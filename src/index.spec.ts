@@ -83,7 +83,7 @@ test('should add database hooks', async t => {
 test('should add collection hooks', async t => {
   const dbName = uuid()
   const db = new HooksLoki(dbName, { adapter: new Loki.LokiMemoryAdapter() })
-  const collection = db.addCollection('collection', {
+  let collection = db.addCollection('collection', {
     disableMeta: true,
     hooks: {
       store: { seq: 10 },
@@ -96,8 +96,8 @@ test('should add collection hooks', async t => {
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 1, id: 'id1', seq: 11 })
   await save(db)
   await load(db)
-  t.assert((db.getCollection('collection') as any).loadedCallCount > 0)
-  t.deepEqual(db.getCollection('collection').insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
+  collection = db.getCollection('collection')
+  t.assert((collection as any).loadedCallCount > 0)
   t.deepEqual(collection.insert({ id: 'id1' }), { $loki: 2, id: 'id1', seq: 12 })
   db.removeCollection('collection')
   const newCollection = db.addCollection('collection', { disableMeta: true })
