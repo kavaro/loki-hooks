@@ -101,7 +101,7 @@
 					<div class="tsd-signature tsd-kind-icon">called<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/3726ede/src/lib/createLoki.ts#L12">src/lib/createLoki.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/bf6f21b/src/lib/createLoki.ts#L12">src/lib/createLoki.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -112,28 +112,32 @@
 					<a name="createhooksloki" class="tsd-anchor"></a>
 					<h3>create<wbr>Hooks<wbr>Loki</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Hooks<wbr>Loki<span class="tsd-signature-symbol">(</span>registry<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Hooks</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/thooksloki.html" class="tsd-signature-type">THooksLoki</a></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Hooks<wbr>Loki<span class="tsd-signature-symbol">(</span>dbRegistry<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Hooks</span>, collectionRegistry<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Hooks</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/thooksloki.html" class="tsd-signature-type">THooksLoki</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/3726ede/src/lib/createLoki.ts#L24">src/lib/createLoki.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/kavaro/loki-hooks/blob/bf6f21b/src/lib/createLoki.ts#L24">src/lib/createLoki.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Enhances Loki constructor and addCollection method with a hooks option.
 										The hooks option allows the user to decorate the database and collection methods hooks as enabled by the member-hooks module.
-										The createHooksLoki function takes a hooks registry (see member-hooks for documentation) as argument and return the HooksLoki class.
-										This registry allows the user to defined hook factory functions.
-									This function should be called only once in the lifetime of the application.</p>
+										The createHooksLoki function takes a database and a collection hooks registry (see member-hooks for documentation) as argument and returns the HooksLoki class.
+										This database registry allows the user to define hooks for the database.
+										This collection registry allows the user to define hooks for the collections.
+									The createHooksLoki function should be called only once in the lifetime of the application because it modifies Loki prototype methods</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>registry: <span class="tsd-signature-type">Hooks</span></h5>
+									<h5>dbRegistry: <span class="tsd-signature-type">Hooks</span></h5>
+								</li>
+								<li>
+									<h5>collectionRegistry: <span class="tsd-signature-type">Hooks</span></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>

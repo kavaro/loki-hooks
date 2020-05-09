@@ -122,11 +122,13 @@ npm install loki-hooks</code></pre>
   })
 }
 
-<span class="hljs-keyword">const</span> registry = <span class="hljs-keyword">new</span> Hooks()
-registry.register(<span class="hljs-string">'seq'</span>, seqHook)
-registry.register(<span class="hljs-string">'saveDatabaseInternal'</span>, saveHook)
+<span class="hljs-keyword">const</span> dbRegistry = <span class="hljs-keyword">new</span> Hooks()
+dbRegistry.register(<span class="hljs-string">'saveDatabaseInternal'</span>, saveHook)
 
-<span class="hljs-keyword">const</span> HooksLoki = createHooksLoki(registry)
+<span class="hljs-keyword">const</span> collectionRegistry = <span class="hljs-keyword">new</span> Hooks()
+collectionRegistry.register(<span class="hljs-string">'seq'</span>, seqHook)
+
+<span class="hljs-keyword">const</span> HooksLoki = createHooksLoki(dbRegistry, collectionRegistry)
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save</span>(<span class="hljs-params">db: THooksLoki</span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">void</span>&gt; </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
