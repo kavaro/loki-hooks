@@ -7,6 +7,7 @@ export interface THookOptions {
 
 export interface THooksCollection<T extends object> extends Collection<T> {
   hooks?: THookOptions
+  loaded(): void
 }
 
 export interface THooksLokiDbObject {
@@ -22,6 +23,7 @@ export interface THooksLoki extends Loki {
   collections: Array<THooksCollection<any>>
   new(filename: string, options?: Partial<THooksLokiConfigOptions>): THooksLoki
   addCollection(name: string, options?: Partial<THooksCollectionOptions<any>>) : Collection<any>
+  loaded(): void
 }
 
 export interface THooksLokiConfigOptions extends LokiConfigOptions {

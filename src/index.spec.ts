@@ -35,11 +35,13 @@ function saveHook(methods: HookMethods): void {
   })
 }
 
-const registry = new Hooks()
-registry.register('seq', seqHook)
-registry.register('saveDatabaseInternal', saveHook)
+const dbRegistry = new Hooks()
+dbRegistry.register('saveDatabaseInternal', saveHook)
 
-const HooksLoki = createHooksLoki(registry)
+const collectionRegistry = new Hooks()
+collectionRegistry.register('seq', seqHook)
+
+const HooksLoki = createHooksLoki(dbRegistry, collectionRegistry)
 
 async function save(db: THooksLoki): Promise<void> {
   return new Promise(resolve => {
