@@ -23,7 +23,7 @@ export interface THooksLoki extends Loki {
   hooks?: THookOptions
   collections: Array<THooksCollection<any>>
   new(filename: string, options?: Partial<THooksLokiConfigOptions>): THooksLoki
-  addCollection(name: string, options?: Partial<THooksCollectionOptions<any>>) : THooksCollection<any>
+  addCollection(name: string, options?: Partial<THooksCollectionOptions<any>>) : Collection<any>
   getCollection(name: string) : THooksCollection<any>
   loaded(): void
 }
