@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.6](https://github.com/kavaro/loki-hooks/compare/v2.0.5...v2.0.6) (2020-05-10)
+
+
+### Bug Fixes
+
+* fix type definition of getCollections method in THooksLoki ([b243638](https://github.com/kavaro/loki-hooks/commit/b243638))
+
+
+
 ### [2.0.5](https://github.com/kavaro/loki-hooks/compare/v2.0.4...v2.0.5) (2020-05-10)
 
 
