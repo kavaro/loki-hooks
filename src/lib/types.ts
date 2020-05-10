@@ -24,7 +24,7 @@ export interface THooksLoki extends Loki {
   collections: Array<THooksCollection<any>>
   new(filename: string, options?: Partial<THooksLokiConfigOptions>): THooksLoki
   addCollection(name: string, options?: Partial<THooksCollectionOptions<any>>) : Collection<any>
-  getCollection(name: string) : THooksCollection<any>
+  getCollection(name: string) : Collection<any>
   loaded(): void
 }
 
