@@ -52,7 +52,7 @@
   "dependencies": {
     "binary-sorted-array": "^1.0.4",
     "lokijs": "^1.5.8",
-    "member-hooks": "^2.1.0"
+    "member-hooks": "^2.1.2"
   },
   "devDependencies": {
     "@bitjson/npm-scripts-info": "^1.0.0",
