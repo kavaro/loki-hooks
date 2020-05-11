@@ -1,6 +1,6 @@
 {
   "name": "loki-hooks",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Enhances Loki and Collection classes with hooks option",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
