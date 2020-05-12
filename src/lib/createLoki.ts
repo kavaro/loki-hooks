@@ -51,16 +51,15 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
 
   const loadJSONObject = Loki.prototype.loadJSONObject
   Loki.prototype.loadJSONObject = function (this: THooksLoki, dbObject: THooksLokiDbObject, options): void {
+    this.collections.forEach((collection: THooksCollection<any>) => {
+      collectionRegistry.uninstall(collection)
+    })
     loadJSONObject.call(this, dbObject, options)
     installHooks(dbRegistry, this, dbObject.hooks)
-    const collections = this.collections
-    /* istanbul ignore else */
-    if (collections) {
-      collections.forEach((collection: THooksCollection<any>, index) => {
-        installHooks(collectionRegistry, collection, dbObject.collections[index].hooks)
-        collection.loaded()
-      })
-    }
+    this.collections.forEach((collection: THooksCollection<any>, index) => {
+      installHooks(collectionRegistry, collection, dbObject.collections[index].hooks)
+      collection.loaded()
+    })
     this.loaded()
   }
 
@@ -74,7 +73,7 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
   }
 
   const getCollection = Loki.prototype.getCollection
-  Loki.prototype.getCollection = function <T extends object = any>(this: THooksLoki, name: string) : THooksCollection<T> {
+  Loki.prototype.getCollection = function <T extends object = any>(this: THooksLoki, name: string): THooksCollection<T> {
     return getCollection.call(this, name) as unknown as THooksCollection<T>
   }
 
