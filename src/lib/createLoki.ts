@@ -34,12 +34,12 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
   // @ts-ignore
   Loki.Collection.prototype.loaded = function (): void { }
 
-  function installHooks(registry: Hooks, obj: THooksLoki | THooksCollection<any>, hookOptions?: THookOptions): void {
+  function installHooks(registry: Hooks, obj: THooksLoki | THooksCollection<any>, hookOptions?: THookOptions, db?: any): void {
     obj.hooks = hookOptions
     const hooksConfig = hookOptions?.config
     /* istanbul ignore else */
     if (hooksConfig) {
-      registry.install(obj, hooksConfig)
+      registry.install(obj, hooksConfig, db)
     }
   }
 
@@ -57,7 +57,7 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
     loadJSONObject.call(this, dbObject, options)
     installHooks(dbRegistry, this, dbObject.hooks)
     this.collections.forEach((collection: THooksCollection<any>, index) => {
-      installHooks(collectionRegistry, collection, dbObject.collections[index].hooks)
+      installHooks(collectionRegistry, collection, dbObject.collections[index].hooks, this)
       collection.loaded()
     })
     this.loaded()
@@ -68,7 +68,7 @@ export function createHooksLoki(dbRegistry: Hooks, collectionRegistry: Hooks): T
     const collection = addCollection.call(this, name, options as any) as unknown as THooksCollection<T>
     /* istanbul ignore next */
     const hooks = options ? options.hooks : undefined
-    installHooks(collectionRegistry, collection, hooks)
+    installHooks(collectionRegistry, collection, hooks, this)
     return collection
   }
 
